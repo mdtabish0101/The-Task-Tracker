@@ -12,24 +12,41 @@ const AddTask = ({ taskList, setTaskList }) => {
             setProjectName(value);
             setErrorMessage("")
         }
-        if (name === "projectName" && value === "") setErrorMessage("Enter Project name")
-        if (name === "taskDescription") setTaskDescription(value)
+        if (name === "taskDescription") {
+            setTaskDescription(value)
+            setErrorMessage("")
+        }
     }
 
-    const handleAdd = e => {
+    const handleAdd = (e) => {
         e.preventDefault();
-        if (!projectName) {
-            setErrorMessage("Enter Project name")
+
+
+        if (!projectName && !taskDescription) {
+            setErrorMessage("Enter both Project Name and Task Description");
+            return;
         }
-        else {
-            setTaskList(
-                [...taskList, { projectName, taskDescription }]
-            );
+        if (!projectName) {
+            setErrorMessage("Enter Project Name");
+            return;
+        }
+        if (!taskDescription) {
+            setErrorMessage("Enter Task Description");
+            return;
+        } else {
+            let timestamp = new Date();
+            let id = Date.now()
+            setTaskList([
+                ...taskList,
+                { id, projectName, taskDescription, timestamp }
+            ]);
+
+
             setAddModal(false);
             setProjectName("");
-            setTaskDescription("")
+            setTaskDescription("");
         }
-    }
+    };
 
     return (
         <>
@@ -38,17 +55,17 @@ const AddTask = ({ taskList, setTaskList }) => {
             {addModal ? (
                 <>
                     <div className="flex items-center justify-center overflow-x-hidden overflow-y-auto fixed inset-0 z-100">
-                        <div className="w-9/12 max-w-lg bg-white rounded-lg shadow-md relative flex flex-col">
+                        <div className="w-11/12 md:w-8/12 lg:w-1/2 xl:w-1/3 bg-white rounded-lg shadow-md relative flex flex-col">
 
                             <div className="flex flex-row justify-between p-5 border-b border-slate-200 rounded-t ">
-                                <h3 className=" text-2xl font-semibold">
+                                <h3 className="text-xl lg:text-2xl font-semibold">
                                     New Task Added
                                 </h3>
-                                <button className="px-2 text-gray-400 text-3xl leading-none font-semibold block"
+                                <button className="rounded-full px-4 text-gray-400 text-3xl leading-none font-semibold block active:bg-gray-200 hover:bg-gray-100 py-1 "
                                     onClick={() => setAddModal(false)}>X</button>
 
                             </div>
-                            <form className="px-6 pt-6 pb-4">
+                            <form className="px-6 pt-6 pb-4" onSubmit={handleAdd}>
                                 <div>
                                     <label className="tracking-wide uppercase text-gray-700 text-xs font-semibold mb-2 pl-2.5 block"
                                         htmlFor="project-name">Project Name</label>
@@ -62,7 +79,7 @@ const AddTask = ({ taskList, setTaskList }) => {
                                         required
                                         autoComplete="off"
                                     />
-                                    <p className="text-red-500 text-center mt-2 mb-5">{errorMessage}</p>
+                                    <p className="text-red-500 text-center mt-2">{errorMessage}</p>
                                 </div>
                                 <div>
                                     <label className="tracking-wide uppercase text-gray-700 text-xs font-semibold mb-2 pl-2.5 block" htmlFor="">Task Description</label>
@@ -83,16 +100,10 @@ const AddTask = ({ taskList, setTaskList }) => {
                                     Add Task
                                 </button>
                             </div>
-
-
                         </div>
-
                     </div>
-
                 </>
             ) : null}
-
-
         </>
     )
 }

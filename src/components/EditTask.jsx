@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 
-const EditTask = ({task, taskList, setTaskList}) => {
+const EditTask = ({ task, taskList, setTaskList }) => {
     const [editModal, setEditModal] = useState(false)
     const [projectName, setProjectName] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
 
-    useEffect(()=>{
+    useEffect(() => {
         setProjectName(task.projectName);
         setTaskDescription(task.taskDescription);
     }, [])
@@ -31,16 +31,16 @@ const EditTask = ({task, taskList, setTaskList}) => {
             {editModal ? (
                 <>
                     <div className="flex items-center justify-center overflow-x-hidden overflow-y-auto fixed inset-0 z-100">
-                        <div className="w-9/12 max-w-lg bg-white rounded-lg shadow-md relative flex flex-col">
+                        <div className="w-11/12 max-w-3xl bg-white rounded-lg shadow-md relative flex flex-col">
 
-                            <div className="flex flex-row justify-between p-5 border-b border-slate-200 rounded-t ">
-                                <h3 className=" text-2xl font-semibold">
+                            <div className="flex flex-row justify-between p-5 border-b border-slate-200 rounded-t">
+                                <h3 className="text-2xl sm:text-3xl font-semibold">
                                     Edit Task
                                 </h3>
-                                <button className="px-2 text-gray-400 text-3xl leading-none font-semibold block"
+                                <button className="px-3 py-1.5 text-gray-400 text-3xl leading-none font-semibold block hover:bg-gray-100 active:bg-gray-50 rounded-full"
                                     onClick={() => setEditModal(false)}>X</button>
-
                             </div>
+
                             <form className="px-6 pt-6 pb-4">
                                 <div>
                                     <label className="tracking-wide uppercase text-gray-700 text-xs font-semibold mb-2 pl-2.5 block"
@@ -51,16 +51,16 @@ const EditTask = ({task, taskList, setTaskList}) => {
                                         name="projectName"
                                         value={projectName}
                                         onChange={handleInput}
-                                        placeholder="project name"
+                                        placeholder="Project Name"
                                         required
                                         autoComplete="off"
                                     />
                                 </div>
                                 <div>
-                                    <label className="tracking-wide uppercase text-gray-700 text-xs font-semibold mb-2 pl-2.5 block" htmlFor="">Task Description</label>
+                                    <label className="tracking-wide uppercase text-gray-700 text-xs font-semibold mb-2 pl-2.5 block" htmlFor="task-description">Task Description</label>
                                     <textarea
                                         id="task-description"
-                                        rows='5'
+                                        rows="5"
                                         placeholder="Task Description"
                                         autoComplete="off"
                                         name="taskDescription"
@@ -69,20 +69,18 @@ const EditTask = ({task, taskList, setTaskList}) => {
                                         className="w-full bg-gray-200 text-gray-800 border border-gray-200 rounded-md py-2 px-4 mb-5 leading-tight focus:outline-none focus:bg-gray-100" />
                                 </div>
                             </form>
+
                             <div className="flex justify-end p-6 border-t border-slate-200 rounded-b">
-                                <button className="bg-violet-500 text-white font-semibold py-3 px-6 rounded-md uppercase hover:bg-violet-600 active:bg-violet-700"
+                                <button className="bg-violet-500 text-white font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-md uppercase hover:bg-violet-600 active:bg-violet-700"
                                     onClick={handleEdit}>
                                     Update Task
                                 </button>
                             </div>
-
-
                         </div>
-
                     </div>
-
                 </>
             ) : null}
+
         </>
     )
 }
