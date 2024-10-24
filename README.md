@@ -37,19 +37,6 @@ The Task Tracker App is a beginner-friendly project developed using React and Ta
    npm run dev
 
 
-## File Structure
-
-├── src
-│   ├── components
-│   │   ├── AddTask.jsx
-│   │   ├── ToDo.jsx
-│   │   └── EditTask.jsx
-│   ├── App.jsx
-│   └── index.css
-└── package.json
-
-
-
 ## Known Bugs & Future Fixes
 
 ### 1. Delete Button Not Working in Completed Section
